@@ -9,7 +9,7 @@ torch
 torchvision
 elevenlabs
 sounddevice
-soudfile
+soundfile
 
 
 # Install the package
