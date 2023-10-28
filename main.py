@@ -1,17 +1,25 @@
 from fastapi import FastAPI
 import asyncio
+from camera import Camera
+import cv2
+from logic import Logic
+from oac import MyOAC
+from pt_model import Model
 
 app = FastAPI()
 
-async def my_task():
+camera = Camera()
+logic = Logic(oac = MyOAC(), model=Model())
+DELTA_T_SECS = 0.1
+
+async def show_face():
     while True:
-        # Replace this with your task logic
-        print("Running the task every second")
-        await asyncio.sleep(1)
+        logic(camera.read())
+        await asyncio.sleep(DELTA_T_SECS)
 
 @app.on_event("startup")
 async def startup_event():
-    asyncio.create_task(my_task())
+    asyncio.create_task(show_face())
 
 if __name__ == "__main__":
     import uvicorn
