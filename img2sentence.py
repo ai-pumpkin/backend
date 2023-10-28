@@ -16,7 +16,6 @@ with open("config.yaml", "r") as f:
 
 openai_api_key = config["openai_api_key"]
 
-img_client = Client("https://xinyu1205-recognize-anything.hf.space/")
 oac = OpenAIClient(
     api_key=open_api_key,
     model="gpt-3.5-turbo",

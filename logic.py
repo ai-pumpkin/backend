@@ -1,61 +1,53 @@
-
 import cv2
 from PIL import Image
-from oac import MyOAC
+from oac import OpenAIClient
 from ram.models import ram_plus
 from ram import inference_ram as inference
 from ram import get_transform
+from text2speech import SaySomething
 
 
 class Logic:
-    
-    def __init__(self, model, oac) -> None:
-        self.is_talking = False
+    def __init__(self, model) -> None:
         self.model = model
-        self.oac = oac
-    
-    def __call__(self, img):
-        return self.step(img)
-    
-    def step(self, frame):  
-        
+        self.speak_model = SaySomething()
+
+    def __call__(self, frame):
+        return self.step(frame)
+
+    def step(self, frame):
         tags = self._run_model(frame)
+        print(tags)
         is_person = self._is_person(tags)
         if not is_person:
-            if self.is_talking:
-                self._stop_talking()
-            return 
-        
-        if self.is_talking:
-            return 
+            return
 
-        sentence = self._tags2sentence(tags)
-        return sentence # TODO REMOVE THIS LINE
-        self._talk(sentence)
-        
+        self._talk(tags)
+
     def _detect_person(self, img):
         pass
-    
-    def _stop_talking(self):
-        # TODO: stop talking
-        self.is_talking = False
-        
+
     def _run_model(self, img):
         return self.model(img)
-    
-    def _tags2sentence(self, tags):
-        return self.oac(tags)
-    
-    def _talk(self, sentence):
-        # 
-        pass
-        
+
+    def _talk(self, tags):
+        self.speak_model.talk(image_tags=tags)
+
     def _is_person(self, taglist):
         taglist = taglist.split(" | ")
         for x in taglist:
             x = x.lower()
-            if x in ["man", "woman", "person", "couple"]:
+            if x in [
+                "man",
+                "woman",
+                "person",
+                "couple",
+                "boy",
+                "girl",
+                "child",
+                "kid",
+                "baby",
+                "people",
+            ]:
                 return True
         return False
-
-

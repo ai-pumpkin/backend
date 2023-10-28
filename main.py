@@ -5,17 +5,18 @@ import cv2
 from logic import Logic
 from oac import MyOAC
 from pt_model import Model
+from text2speech import SaySomething
 import uvicorn
 
 app = FastAPI()
 
-camera = Camera()
-logic = Logic(oac = MyOAC(), model=Model())
-DELTA_T_SECS = 0.1
+camera = Camera(0)
+logic = Logic(model=Model())
+DELTA_T_SECS = 0.3
 
 async def show_face():
     while True:
-        logic(camera.read())
+        logic(camera.read()[1])
         await asyncio.sleep(DELTA_T_SECS)
 
 @app.on_event("startup")
