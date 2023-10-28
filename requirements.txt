@@ -16,4 +16,6 @@ fastapi
 # Install the package
 #pip install git+https://github.com/xinyu1205/recognize-anything.git
 
+# download the ram c+ here: https://github.com/xinyu1205/recognize-anything#:~:text=1-,RAM,-%2B%2B%20(14M)
+
 
