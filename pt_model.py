@@ -18,11 +18,13 @@ def pilify(x):
 class Model:
     
     def __init__(self) -> None:
+        
         self._model = ram_plus(
             pretrained="pretrained/ram_plus_swin_large_14m.pth",
             image_size=image_size,
             vit="swin_l",
         )
+
         self._model.eval()
         self._model = self._model.to(device)
     

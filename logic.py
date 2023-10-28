@@ -17,7 +17,6 @@ class Logic:
 
     def step(self, frame):
         tags = self._run_model(frame)
-        print(tags)
         is_person = self._is_person(tags)
         if not is_person:
             return

@@ -1,8 +1,9 @@
 from oac import OpenAIClient
-from elevenlabs import clone, generate, play, 
+from elevenlabs import clone, generate, play, voices
 from elevenlabs import set_api_key
 
 import yaml
+import pickle 
 
 
 class SaySomething(object):
@@ -13,11 +14,14 @@ class SaySomething(object):
 
         eleven_key = config["elevenlabs"]
         set_api_key(eleven_key)
-        self.voice = clone(
-            name="Creepy",
-            description="Scary voice. Very creepy and disturbing. Sometimes becomes very deep and demonic.",
-            files=["demon.mp3"],
-        )
+        self.voice = pickle.load(open("voice.pkl", "rb"))
+        
+        # self.voice = clone(
+        #     name="Creepy",
+        #     description="Scary voice. Very creepy and disturbing. Sometimes becomes very deep and demonic.",
+        #     files=["demon.mp3"],
+        # )
+
         self.oac = OpenAIClient(
             api_key=open_ai_key,
             model="gpt-3.5-turbo",
