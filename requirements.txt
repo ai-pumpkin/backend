@@ -4,4 +4,13 @@ uvicorn
 fastapi_utils
 sqlalchemy
 rocketry
+gradio_client
+open-cv
+torch 
+torchvision
+
+
+# Install the package
+#pip install git+https://github.com/xinyu1205/recognize-anything.git
+
 

@@ -2,11 +2,6 @@
 from openaiclient import OpenAIClient
 from gradio_client import Client
 import cv2
-import argparse
-import numpy as np
-import random
-
-import torch
 
 from PIL import Image
 from ram.models import ram_plus
