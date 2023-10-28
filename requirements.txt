@@ -1,13 +1,15 @@
 openai
-fastapi
 uvicorn
 fastapi_utils
 sqlalchemy
 rocketry
 gradio_client
-open-cv
+opencv-python
 torch 
 torchvision
+elevenlabs
+sounddevice
+soudfile
 
 
 # Install the package
