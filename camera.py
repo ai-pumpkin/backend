@@ -25,6 +25,6 @@ class Camera:
     def stop_vid(self):
         self.show_vid_flag = False
 
-    def __del__(self):
+    def close(self):
         self.camera.release()
         cv2.destroyAllWindows()
