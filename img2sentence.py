@@ -1,4 +1,3 @@
-
 from openaiclient import OpenAIClient
 from gradio_client import Client
 import cv2
@@ -10,26 +9,38 @@ from ram import get_transform
 
 from IPython.display import clear_output
 
+import yaml
 
+with open("config.yaml", "r") as f:
+    config = yaml.safe_load(f)
+
+openai_api_key = config["openai_api_key"]
 
 img_client = Client("https://xinyu1205-recognize-anything.hf.space/")
-oac = OpenAIClient(api_key="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", model="gpt-3.5-turbo", )
+oac = OpenAIClient(
+    api_key=open_api_key,
+    model="gpt-3.5-turbo",
+)
 
 
 image_size = 384
 transform = get_transform(image_size=image_size)
 
-model = ram_plus(pretrained='pretrained/ram_plus_swin_large_14m.pth',
-                 image_size=image_size,
-                 vit='swin_l')
+model = ram_plus(
+    pretrained="pretrained/ram_plus_swin_large_14m.pth",
+    image_size=image_size,
+    vit="swin_l",
+)
 
 model.eval()
 device = "mps"
 model = model.to(device)
 
+
 def pilify(x):
     x = cv2.cvtColor(x, cv2.COLOR_BGR2RGB)
     return Image.fromarray(x, "RGB")
+
 
 def is_person(taglist):
     taglist = taglist.split(" | ")
@@ -38,6 +49,7 @@ def is_person(taglist):
         if x in ["man", "woman", "person", "couple"]:
             return True
     return False
+
 
 def main():
     # Capture video from the first webcam connected to the system
@@ -65,25 +77,23 @@ def main():
             break
 
         # Display the frame
-        cv2.imshow('Webcam', frame)
+        cv2.imshow("Webcam", frame)
 
         # Break out of the loop if 'q' is pressed
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord("q"):
             break
 
     # Release the VideoCapture and destroy all windows
     cap.release()
     cv2.destroyAllWindows()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
 
 
 exit()
-result = img_client.predict(
-				image_path,	
-				fn_index=2
-)
+result = img_client.predict(image_path, fn_index=2)
 
 print(result[0])
 tags = result[0]
@@ -93,6 +103,3 @@ prompt = f"You are a scary pumpkin during Halloween. There is a person in front 
 response = oac.chat_completion(prompt)
 
 print(response)
-
-
-
