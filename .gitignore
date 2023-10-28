@@ -127,3 +127,6 @@ pretrained/
 
 #config
 config/
+
+#video
+zombie.mov
