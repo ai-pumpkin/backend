@@ -130,3 +130,9 @@ config/
 
 #video
 zombie.mov
+
+*.png 
+*.DS_store
+*.DS_Store
+zombie.mp4
+t.ipynb
