@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white h-full">
+    <main class="">
+        <video  class="h-full w-full"  src="zombie.mp4"  >
+    </main>    
+</body>
+</html>
+
+<style>
+    main {
+        height: 100vh;
+    }
+</style>
+
+<script src="https://unpkg.com/sockette"></script>
+
+<script>
+    const videoEl = document.querySelector('video');
+    videoEl.addEventListener("ended", function() {
+        console.log('video ended');
+        videoEl.currentTime = 0;
+    })
+    function playVideo() {
+        videoEl.play();
+    }
+
+    const ws =  sockette('ws://localhost:8765', {
+        timeout: 5e3,
+        maxAttempts: 10,
+        onopen: e => console.log('Connected!', e),
+        onmessage: e => playVideo(),
+        onreconnect: e => console.log('Reconnecting...', e),
+        onmaximum: e => console.log('Stop Attempting!', e),
+        onclose: e => console.log('Closed!', e),
+        onerror: e => console.log('Error:', e)
+      });
+
+
+
+</script>

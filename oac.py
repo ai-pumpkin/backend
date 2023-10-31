@@ -38,7 +38,6 @@ class OpenAIClient:
 with open("config/config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
-img_client = Client("https://xinyu1205-recognize-anything.hf.space/")
 oac = OpenAIClient(
     api_key=config["openai"],
     model="gpt-3.5-turbo",
